@@ -1,0 +1,61 @@
+# stuck 官方网站
+stuck:
+  address: https://gitee.com/Ddull
+  server-path: http://www.stuck.top/
+
+# stuck-link配置
+link:
+  # 默认跳转链接
+  no-code-redirect: ${stuck.address}
+  # 消息本地内存队列大小
+  queue-size: 500
+  # 消息消费者线程池大小
+  consumer-pool-size: 5
+  # 异步任务配置
+  async:
+    # 是否开启异步任务
+    enabled: false
+    # 异步任务线程池数
+    pool-size: 10
+  # 缓存时间
+  cache-time: 3600
+  charts:
+    # 是否开启图形API接口 接口地址/charts/*，需要依赖stuck-link-charts模块
+    api-enabled: false
+
+# 服务器配置
+server:
+  servlet:
+    context-path: /
+  port: 80
+
+# 数据源
+spring:
+  application:
+    name: stuck-link
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/stuck_link?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=CTT&allowMultiQueries=true
+    username: root
+    password: root
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      auto-commit: true
+      minimum-idle: 5
+      maximum-pool-size: 30
+      idle-timeout: 30000
+      pool-name: HikariPool
+      max-lifetime: 900000
+      connection-timeout: 10000
+      connection-test-query: SELECT 1
+  # redis配置
+  redis:
+    host: localhost
+    password:
+    port: 6379
+    database: 0
+
+# mybatis配置Mapper文件路径
+mybatis:
+  mapper-locations: classpath*:/mybatis-mapper/*Mapper.xml
+  type-aliases-package: top.stuck.link.*.mapper

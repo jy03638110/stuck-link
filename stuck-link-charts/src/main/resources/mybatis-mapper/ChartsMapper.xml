@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.stuck.link.charts.mapper.ChartsMapper">
+
+	<select id="visitRatio" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+		<if test="type==null or type==''">
+			OS_FAMILY AS `name`,
+		</if>
+		<if test='type=="os"'>
+			OS_FAMILY AS `name`,
+		</if>
+		<if test='type=="ua"'>
+			UA_FAMILY AS `name`,
+		</if>
+		COUNT(*) AS total
+		FROM `LINK_MESSAGE`
+		WHERE MESSAGE_TYPE = #{messageType} AND REQUEST_URL = #{requestUrl}
+		AND VISIT_TIME &gt; #{startTime} AND VISIT_TIME &lt; #{endTime}
+		GROUP BY
+		<if test="type==null or type==''">
+			OS_FAMILY
+		</if>
+		<if test='type=="os"'>
+			OS_FAMILY
+		</if>
+		<if test='type=="ua"'>
+			UA_FAMILY
+		</if>
+	</select>
+</mapper>

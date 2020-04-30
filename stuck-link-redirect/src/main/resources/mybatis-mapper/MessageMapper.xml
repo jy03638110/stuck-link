@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.stuck.link.redirect.mapper.MessageMapper">
+
+	<insert id="addMessage" parameterType="top.stuck.link.core.model.MessageModel">
+		INSERT INTO LINK_MESSAGE
+		(
+			VISIT_TIME,
+			MESSAGE_TYPE,
+			REQUEST_URL,
+			QUERY_STRING,
+			REFERER,
+			REMOTE_ADDR,
+			REMOTE_HOST,
+			LOCAL_ADDR,
+			LOCAL_NAME,
+			USER_AGENT,
+			REMOTE_USER,
+			OS_FAMILY,
+			OS_NAME,
+			UA_NAME,
+			UA_TYPE,
+			UA_FAMILY,
+			BROWSER_VERSION,
+			DEVICE_TYPE
+		)
+		VALUES
+		(
+			#{visitTime},
+			#{messageType},
+			#{requestUrl, jdbcType=VARCHAR},
+			#{queryString, jdbcType=VARCHAR},
+			#{referer, jdbcType=VARCHAR},
+			#{remoteAddr, jdbcType=VARCHAR},
+			#{remoteHost, jdbcType=VARCHAR},
+			#{localAddr, jdbcType=VARCHAR},
+			#{localName, jdbcType=VARCHAR},
+			#{userAgent, jdbcType=VARCHAR},
+			#{remoteUser, jdbcType=VARCHAR},
+			#{osFamily, jdbcType=VARCHAR},
+			#{osName, jdbcType=VARCHAR},
+			#{uaName, jdbcType=VARCHAR},
+			#{uaType, jdbcType=VARCHAR},
+			#{uaFamily, jdbcType=VARCHAR},
+			#{browserVersion, jdbcType=VARCHAR},
+			#{deviceType, jdbcType=VARCHAR}
+		)
+	</insert>
+</mapper>
