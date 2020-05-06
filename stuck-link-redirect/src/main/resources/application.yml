@@ -1,7 +1,7 @@
 # stuck 官方网站
 stuck:
-  address: https://gitee.com/Ddull
-  server-path: http://www.stuck.top/
+  address: https://gitee.com/Ddull/stuck-link
+  server-path: http://stuck.top/
 
 # stuck-link配置
 link:
@@ -22,6 +22,7 @@ link:
   charts:
     # 是否开启图形API接口 接口地址/charts/*，需要依赖stuck-link-charts模块
     api-enabled: false
+
 
 # 服务器配置
 server:

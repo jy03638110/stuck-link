@@ -41,4 +41,24 @@ public class WebUtil {
         }
         return params;
     }
+
+    /**
+     * 从Map中获取指定名称的业务参数并转换为String类型
+     *
+     * @param paramName 参数名称
+     * @param params Map对象
+     *
+     * @return 参数值
+     */
+    public static String getString(String paramName, Map<String, Object> params) {
+        String result = "";
+        if (params == null || params.size() == 0) {
+            return result;
+        }
+        Object value = params.get(paramName);
+        if (value == null) {
+            return result;
+        }
+        return value.toString();
+    }
 }

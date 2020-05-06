@@ -1,7 +1,13 @@
 # stuck 官方网站
 stuck:
-  address: https://gitee.com/Ddull
-  server-path: http://www.stuck.top/
+  # StuckLink开源地址
+  address: https://gitee.com/Ddull/stuck-link
+  # 管理后台地址
+  admin-address: http://www.stuck.top:8080/
+  # 短链服务器配置
+  server-path: http://stuck.top/
+  # 备案号
+  record-no: 
 
 # stuck-link配置
 link:
@@ -54,6 +60,19 @@ spring:
     password:
     port: 6379
     database: 0
+  # thymeleaf配置
+  jackson:
+    default-property-inclusion: NON_NULL
+  http:
+    encoding:
+      enabled: true
+      force: true
+      charset: UTF-8
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: LEGACYHTML5
+    cache: false
 
 # mybatis配置Mapper文件路径
 mybatis:

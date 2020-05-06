@@ -16,7 +16,10 @@
 		</if>
 		COUNT(*) AS total
 		FROM `LINK_MESSAGE`
-		WHERE MESSAGE_TYPE = #{messageType} AND REQUEST_URL = #{requestUrl}
+		WHERE USER_AGENT IS NOT NULL AND MESSAGE_TYPE = #{messageType} AND REQUEST_URL = #{requestUrl}
+		<if test="queryString!=null and queryString!=''">
+			AND QUERY_STRING = #{queryString}
+		</if>
 		AND VISIT_TIME &gt; #{startTime} AND VISIT_TIME &lt; #{endTime}
 		GROUP BY
 		<if test="type==null or type==''">
@@ -28,5 +31,20 @@
 		<if test='type=="ua"'>
 			UA_FAMILY
 		</if>
+	</select>
+
+	<select id="visitDetail" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+		DATE_FORMAT(VISIT_TIME, '%Y-%m-%d %H:%i:%s') AS visitTime,
+		OS_FAMILY AS osFamliy,
+		OS_NAME AS osName,
+		UA_FAMILY AS uaFamily,
+		UA_NAME AS uaName
+		FROM `LINK_MESSAGE`
+		WHERE USER_AGENT IS NOT NULL AND MESSAGE_TYPE = #{messageType} AND REQUEST_URL = #{requestUrl}
+		<if test="queryString!=null and queryString!=''">
+			AND QUERY_STRING = #{queryString}
+		</if>
+		AND VISIT_TIME &gt; #{startTime} AND VISIT_TIME &lt; #{endTime}
 	</select>
 </mapper>

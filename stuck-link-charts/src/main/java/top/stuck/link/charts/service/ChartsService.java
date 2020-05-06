@@ -11,4 +11,6 @@ import java.util.Map;
 public interface ChartsService {
 
     List<Map<String, Object>> visitRatio(Map<String, Object> params);
+
+    List<Map<String, Object>> visitDetail(Map<String, Object> params);
 }

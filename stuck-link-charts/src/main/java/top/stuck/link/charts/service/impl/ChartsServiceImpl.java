@@ -35,4 +35,14 @@ public class ChartsServiceImpl implements ChartsService {
             return null;
         }
     }
+
+    @Override
+    public List<Map<String, Object>> visitDetail(Map<String, Object> params) {
+        try {
+            return chartsMapper.visitDetail(params);
+        } catch (Exception e) {
+            logger.error("获取短链访问明细失败", e);
+            return null;
+        }
+    }
 }

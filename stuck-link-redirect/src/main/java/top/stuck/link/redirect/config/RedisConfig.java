@@ -1,6 +1,7 @@
 package top.stuck.link.redirect.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -23,6 +24,7 @@ public class RedisConfig {
     private RedisProperties redisProperties;
 
     @Bean
+    @ConditionalOnProperty(prefix = "link.async", name = "enabled", havingValue = "true")
     public RedisSerializer fastJson2JsonRedisSerializer() {
         return new FastJson2JsonRedisSerializer(String.class);
     }

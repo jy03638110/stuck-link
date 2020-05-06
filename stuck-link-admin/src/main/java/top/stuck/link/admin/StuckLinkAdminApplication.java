@@ -2,12 +2,10 @@ package top.stuck.link.admin;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.SpringBootConfiguration;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootConfiguration
-@ComponentScan(basePackages = "top.stuck.link")
-@MapperScan(basePackages = "top.stuck.link")
+@SpringBootApplication(scanBasePackages = "top.stuck.link")
+@MapperScan("top.stuck.link.*.mapper")
 public class StuckLinkAdminApplication {
 
     public static void main(String[] args) {
