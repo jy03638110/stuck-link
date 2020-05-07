@@ -4,7 +4,6 @@
     <modelVersion>4.0.0</modelVersion>
     <modules>
         <module>stuck-link-core</module>
-        <module>stuck-link-admin</module>
         <module>stuck-link-redirect</module>
         <module>stuck-link-charts</module>
     </modules>

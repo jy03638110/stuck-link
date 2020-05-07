@@ -9,5 +9,5 @@ import top.stuck.link.core.exception.ConsumerException;
  */
 public interface Consumer<T> {
 
-    public boolean consume(T t) throws ConsumerException;
+    boolean consume(T t) throws ConsumerException;
 }

@@ -18,10 +18,18 @@ link:
     # 异步任务线程池数
     pool-size: 10
   # 缓存时间
-  cache-time: 3600
+  cache:
+    # 缓存管理器类型，暂支持内存缓存：memory，Redis缓存：redis
+    type: memory
+    time: 3600
+  # API接口调用访问token
+  accessToken:
   charts:
     # 是否开启图形API接口 接口地址/charts/*，需要依赖stuck-link-charts模块
     api-enabled: false
+  admin:
+    # 是否开启短链管理API接口 接口地址为/url/*，需要依赖stuck-link-charts模块
+    api-enabled: true
 
 
 # 服务器配置
@@ -32,6 +40,9 @@ server:
 
 # 数据源
 spring:
+  jackson:
+    # 不输出为空的属性
+    default-property-inclusion: non_null
   application:
     name: stuck-link
   datasource:

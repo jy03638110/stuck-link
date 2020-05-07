@@ -2,6 +2,7 @@ package top.stuck.link.core.utils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import top.stuck.link.core.contants.SystemContant;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -60,5 +61,37 @@ public class WebUtil {
             return result;
         }
         return value.toString();
+    }
+
+    /**
+     * 从Map中获取指定名称的业务参数并转换为Integer类型
+     *
+     * @param paramName 参数名称
+     * @param params Map对象
+     *
+     * @return 参数值
+     */
+    public static Integer getInteger(String paramName, Map<String, Object> params) {
+        if (params == null || params.size() == 0) {
+            return null;
+        }
+        Object value = params.get(paramName);
+        if (value == null) {
+            return null;
+        }
+        Integer result = null;
+        try {
+            result = Integer.parseInt(value.toString());
+        } catch (Exception e) {
+            return result;
+        }
+        return result;
+    }
+
+    public static void initMysqlPageParams(Map<String, Object> params) {
+        int pageIndex = getInteger("page", params) == null ? 0 : getInteger("page", params);
+        int pageCount = getInteger("rows", params) == null ? SystemContant.PAGE_SIZE : getInteger("rows", params);
+        params.put("startNum", pageIndex);
+        params.put("count", pageCount);
     }
 }

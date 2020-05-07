@@ -7,13 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import top.stuck.link.charts.service.UrlService;
+import top.stuck.link.core.cache.CacheManager;
+import top.stuck.link.core.entity.UrlEntity;
+import top.stuck.link.core.model.UrlModel;
 import top.stuck.link.core.response.ReturnT;
 import top.stuck.link.core.utils.*;
 import top.stuck.link.redirect.manager.MessageManager;
-import top.stuck.link.redirect.service.IndexService;
-import top.stuck.link.core.model.UrlModel;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,14 +39,17 @@ public class IndexController {
     @Value("${stuck.server-path:}")
     private String serverPath;
 
-    @Value("${link.cache-time:300}")
+    @Value("${link.cache.time:300}")
     private Integer cacheTime;
 
     @Autowired
-    private IndexService indexService;
+    private UrlService urlService;
 
     @Autowired(required = false)
     private MessageManager messageManager;
+
+    @Autowired
+    private CacheManager cacheManager;
 
     /**
      * 匿名跳转
@@ -82,18 +86,18 @@ public class IndexController {
             return new ReturnT<>(ReturnT.FAIL_CODE, "url参数格式错误");
         }
         // 构建短链对象
-        UrlModel urlModel = buildUrl(request);
-        if (urlModel == null) {
+        UrlEntity urlEntity = buildUrl(request);
+        if (urlEntity == null) {
             // 限制插入
             return new ReturnT<>(ReturnT.FAIL_CODE, "限制生成短链");
         }
         // 给跳转URL不带http://头的地址做简单补全
         url = URLUtil.normalize(url);
-        urlModel.setDefaultUrl(url);
-        Integer count = indexService.addUrl(urlModel);
+        urlEntity.setDefaultUrl(url);
+        Integer count = urlService.addUrl(urlEntity);
         if (count > 0) {
             // 插入成功
-            return new ReturnT<>(urlModel.getCode());
+            return new ReturnT<>(urlEntity.getCode());
         } else {
             // 插入失败
             return ReturnT.FAIL;
@@ -115,7 +119,7 @@ public class IndexController {
         } else if (!shortUrl.startsWith(serverPath)) {
             return new ReturnT<>(ReturnT.FAIL_CODE, "url格式错误");
         }
-        UrlModel urlModel = indexService.loadUrlByShortUrl(shortUrl);
+        UrlModel urlModel = urlService.loadUrlByShortUrl(shortUrl);
         if (urlModel != null) {
             // 还原成功
             return new ReturnT<>(urlModel.getDefaultUrl());
@@ -130,13 +134,13 @@ public class IndexController {
         // 写入请求消息
         messageManager.sendMessage(request, MessageManager.MESSAGE_IMG_TYPE);
         // 获取url配置信息
-        UrlModel urlModel = RedisUtil.get(URL_MODEL_PREFIX + code, UrlModel.class);
+        UrlModel urlModel = cacheManager.get(URL_MODEL_PREFIX + code, UrlModel.class);
         if (urlModel == null) {
-            urlModel = indexService.loadUrlByCode(code);
+            urlModel = urlService.loadUrlByCode(code);
             if (urlModel == null) {
                 urlModel = new UrlModel();
             }
-            RedisUtil.set(URL_MODEL_PREFIX + code, urlModel, cacheTime);
+            cacheManager.set(URL_MODEL_PREFIX + code, urlModel, cacheTime);
         }
 
         if(!StringUtil.isEmpty(urlModel.getCode())){
@@ -180,13 +184,13 @@ public class IndexController {
         // 写入请求消息
         messageManager.sendMessage(request, MessageManager.MESSAGE_CODE_TYPE);
         // 获取url配置信息
-        UrlModel urlModel = RedisUtil.get(URL_MODEL_PREFIX + code, UrlModel.class);
+        UrlModel urlModel = cacheManager.get(URL_MODEL_PREFIX + code, UrlModel.class);
         if (urlModel == null) {
-            urlModel = indexService.loadUrlByCode(code);
+            urlModel = urlService.loadUrlByCode(code);
             if (urlModel == null) {
                 urlModel = new UrlModel();
             }
-            RedisUtil.set(URL_MODEL_PREFIX + code, urlModel, cacheTime);
+            cacheManager.set(URL_MODEL_PREFIX + code, urlModel, cacheTime);
         }
         if (!StringUtil.isEmpty(urlModel.getCode())) {
             if (urlModel.getMulitClients() == 0) {
@@ -219,19 +223,19 @@ public class IndexController {
      * 默认有效期为3天
      * @return
      */
-    private UrlModel buildUrl(HttpServletRequest request){
-        UrlModel urlModel = new UrlModel();
+    private UrlEntity buildUrl(HttpServletRequest request){
+        UrlEntity urlEntity = new UrlEntity();
         String code = CodeUtil.getCode();
-        urlModel.setCode(code);
-        urlModel.setShortUrl(serverPath + code);
-        urlModel.setMulitClients(0);
-        urlModel.setCreateUserCode("-1");
-        urlModel.setCreateTime(new Date());
+        urlEntity.setCode(code);
+        urlEntity.setShortUrl(serverPath + code);
+        urlEntity.setMulitClients(0);
+        urlEntity.setCreateUserCode("-1");
+        urlEntity.setCreateTime(new Date());
         Date now = new Date();
         // 有效期3天 单位（毫秒）
         now.setTime(now.getTime() + 3 * 86400L * 1000);
-        urlModel.setInvalidTime(now);
-        return urlModel;
+        urlEntity.setInvalidTime(now);
+        return urlEntity;
     }
 
 }

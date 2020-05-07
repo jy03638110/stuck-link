@@ -1,11 +1,13 @@
-package top.stuck.link.core.model;
+package top.stuck.link.core.entity;
+
+import java.util.Date;
 
 /**
- * Created on 2019-11-09
+ * Created on 2020-05-07
  *
  * @author Octopus
  */
-public class UrlModel {
+public class UrlEntity {
 
     private String code;
 
@@ -21,9 +23,9 @@ public class UrlModel {
 
     private String createUserCode;
 
-    private String createTime;
+    private Date createTime;
 
-    private String invalidTime;
+    private Date invalidTime;
 
     public String getCode() {
         return code;
@@ -81,19 +83,19 @@ public class UrlModel {
         this.createUserCode = createUserCode;
     }
 
-    public String getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(String createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
-    public String getInvalidTime() {
+    public Date getInvalidTime() {
         return invalidTime;
     }
 
-    public void setInvalidTime(String invalidTime) {
+    public void setInvalidTime(Date invalidTime) {
         this.invalidTime = invalidTime;
     }
 }
