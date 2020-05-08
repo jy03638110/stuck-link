@@ -46,7 +46,7 @@ demo网站：[http://stuck.top](http://stuck.top/)
 1.  短链功能
     1.  短链重定向：http://stuck.top/zaeJ9t
     2.  生成短链：http://stuck.top/short?www.taobao.com 或 http://stuck.top/short?http://www.taobao.com
-    3.  短链还原真实地址：http://stuck.top/restore?http://stuck.top/zaeJ9t或http://stuck.top/restore?stuck.top/zaeJ9t
+    3.  短链还原真实地址：http://stuck.top/restore?http://stuck.top/zaeJ9t 或 http://stuck.top/restore?stuck.top/zaeJ9t
 2.  短链二维码
     1.  二维码接口：http://link.stuck.top/img/zaeJ9t
 3.  匿名访问
