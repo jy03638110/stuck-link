@@ -3,6 +3,7 @@ package top.stuck.link.core.handler.pipline;
 import top.stuck.link.core.model.MessageModel;
 
 /**
+ * 消息管道
  * Created on 2020-04-27
  *
  * @author Octopus

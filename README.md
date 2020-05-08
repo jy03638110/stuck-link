@@ -33,8 +33,13 @@ demo网站：[http://stuck.top](http://stuck.top/)
     2.  编译stuck-link-redirect模块：mvn clean package
     3.  将stuck-link-redirect模块target目录下stuck-link-redirect.jar放至服务器，运行jar包，启动服务：nohup java -jar stuck-link-redirect.jar &
 2.  docker部署stuck-link-redirect服务
+    1.  源码基础上修改配置文件application.yml
+    2.  在stuck-link目录编译整个项目：mvn clean package
+    3.  运行docker命令：docker build，构建docker镜像
 3.  已编译jar包部署
-    1.  
+    1.  下载最新稳定运行发布包：[stuck-link-redirect.jar](https://gitee.com/Ddull/stuck-link/attach_files/387989/download)
+    2.  调整配置文件application.yml
+    3.  部署运行
 
 #### 使用说明
 
@@ -47,10 +52,34 @@ demo网站：[http://stuck.top](http://stuck.top/)
 3.  匿名访问
     1.  http://link.stuck.top?www.baidu.com 或 http://link.stuck.top?http://www.baidu.com
 4.  访问统计
-5.  配置调整
-    - 默认禁用访问统计图形API接口，通过设置参数link.charts.api-enabled进行启用
-    - 默认禁用异步任务接口，通过设置参数link.async.enabled进行启用
-    - 默认采用内存缓存管理器，通过设置参数link.cache.type进行设置，现支持memory（不支持缓存有效时间）和redis两类缓存管理器
+    1.  稍后完善统计功能
+
+#### 配置说明
+
+1. stuck.address为本开源项目gitee地址，也是默认短链不存在跳转地址
+2. stuck.server-path为短链部署服务器地址，用于生成短链长地址，配置错误无法通过短链还原真实地址！
+3. 默认禁用访问统计图形API接口，通过设置参数：link.charts.api-enabled进行启用
+4. 默认禁用异步任务接口，通过设置参数：link.async.enabled进行启用
+5. 默认采用内存缓存管理器，通过设置参数：link.cache.type进行设置，现支持memory（不支持缓存有效时间）和redis两类缓存管理器
+6. 默认短链code长度为6位，通过设置参数：link.code-length调整参数长度
+7. link.accessToken配置用于接口暴露验证访问权限，默认为空
+
+#### 开发说明
+
+项目采用传统生产者、管道、消费者为模型，另提供灵活的缓存管理器
+
+1. 构建接口：Builder，用于将用户HttpServletRequest请求构建成传输对象
+   1. 默认实现：MessageBuilder，将HttpServletRequest构造成消息
+2. 生产者接口：Producer，需要绑定对应的Builder，用于将传输对象写入管道
+   1. 默认实现：MessageProducer，将消息写入管道
+3. 管道接口：Pipeline，管道采用队列的结构，提供入队和出队的方法，另支持获取管道中对象长度
+   1. 默认实现：MessagePipline，消息管道抽象类，提供对消息的入队、出队方法
+   2. 实现类：ArrayBlockingQueuePipeline，底层采用ArrayBlockingQueue实现管道操作，采用相同读写锁，性能较差
+   3. 实现类：LinkedBlockingQueuePipeline，底层采用LinkedBlockingQueue实现管道操作，采用单独的读写锁，性能较好
+4. 消费者接口：Consumer，用于传输对象
+   1. 默认实现：MessageConsumer，用于消费消息对象
+   2. 实现类：SimpleMessageConsumer，将消息对象System.out.println输出
+   3. 实现类：DataBaseMessageConsumer，将消息对象写入数据库
 
 #### 参与贡献
 
@@ -61,14 +90,4 @@ demo网站：[http://stuck.top](http://stuck.top/)
 
 #### 问题排查
 
-
-
-
-#### 码云特技
-
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  码云官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解码云上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
-5.  码云官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+欢迎多多提问，项目持续更新，你的提问和支持是对我们的最大鼓励！
