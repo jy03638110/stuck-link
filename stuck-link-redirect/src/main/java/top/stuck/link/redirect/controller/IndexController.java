@@ -42,6 +42,9 @@ public class IndexController {
     @Value("${link.cache.time:300}")
     private Integer cacheTime;
 
+    @Value("${link.code-length:6}")
+    private Integer codeLength;
+
     @Autowired
     private UrlService urlService;
 
@@ -225,7 +228,7 @@ public class IndexController {
      */
     private UrlEntity buildUrl(HttpServletRequest request){
         UrlEntity urlEntity = new UrlEntity();
-        String code = CodeUtil.getCode();
+        String code = CodeUtil.getCode(codeLength);
         urlEntity.setCode(code);
         urlEntity.setShortUrl(serverPath + code);
         urlEntity.setMulitClients(0);

@@ -16,6 +16,8 @@ public class SystemProperties {
 
     private String noCodeRedirect = "";
 
+    private Integer codeLength = 6;
+
     private Integer queueSize = 500;
 
     private Integer consumerPoolSize = 5;
@@ -28,6 +30,14 @@ public class SystemProperties {
 
     public void setNoCodeRedirect(String noCodeRedirect) {
         this.noCodeRedirect = noCodeRedirect;
+    }
+
+    public Integer getCodeLength() {
+        return codeLength;
+    }
+
+    public void setCodeLength(Integer codeLength) {
+        this.codeLength = codeLength;
     }
 
     public Integer getQueueSize() {

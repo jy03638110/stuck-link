@@ -7,6 +7,8 @@ stuck:
 link:
   # 默认跳转链接
   no-code-redirect: ${stuck.address}
+  # 短链长度 默认6位
+  code-length: 6
   # 消息本地内存队列大小
   queue-size: 500
   # 消息消费者线程池大小
