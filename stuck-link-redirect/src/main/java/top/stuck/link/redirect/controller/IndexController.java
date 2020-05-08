@@ -119,7 +119,9 @@ public class IndexController {
         String shortUrl = request.getQueryString();
         if (StringUtil.isEmpty(shortUrl)) {
             return new ReturnT<>(ReturnT.FAIL_CODE, "链接不能为空");
-        } else if (!shortUrl.startsWith(serverPath)) {
+        }
+        shortUrl = URLUtil.normalize(shortUrl);
+        if (!shortUrl.startsWith(serverPath)) {
             return new ReturnT<>(ReturnT.FAIL_CODE, "url格式错误");
         }
         UrlModel urlModel = urlService.loadUrlByShortUrl(shortUrl);

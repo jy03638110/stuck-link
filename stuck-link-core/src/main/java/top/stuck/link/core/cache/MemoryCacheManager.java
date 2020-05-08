@@ -1,5 +1,7 @@
 package top.stuck.link.core.cache;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import top.stuck.link.core.utils.StringUtil;
@@ -9,20 +11,23 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * 内存缓存管理器，不支持设置有效时间
  * Created on 2020-05-07
- *
  * @author Octopus
  */
 @Component
 @ConditionalOnProperty(prefix = "link.cache", name = "type", havingValue = "memory")
 public class MemoryCacheManager implements CacheManager {
 
+    private static Logger logger = LoggerFactory.getLogger(MemoryCacheManager.class);
+
     private static final Integer DEFAULT_CACHE_SIZE = 1000;
 
     private static Map<String,Object> memoryCacheMap;
 
     @PostConstruct
-    void init(){
+    void init() {
+        logger.info("初始化内存缓存管理器: MemoryCacheManager");
         MemoryCacheManager.memoryCacheMap = new ConcurrentHashMap(DEFAULT_CACHE_SIZE);
     }
 

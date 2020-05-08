@@ -1,6 +1,7 @@
 package top.stuck.link.redirect.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -17,6 +18,7 @@ import top.stuck.link.core.utils.RedisUtil;
  * @author Octopus
  */
 @Configuration
+@ConditionalOnProperty(prefix = "link.cache", name = "type", havingValue = "redis")
 public class RedisConfig {
 
     @Autowired
@@ -42,7 +44,7 @@ public class RedisConfig {
      * @param redisTemplate
      * @return
      */
-    @Bean
+//    @Bean
     public RedisUtil redisUtil(RedisTemplate<String, String> redisTemplate) {
         return new RedisUtil(redisProperties);
     }

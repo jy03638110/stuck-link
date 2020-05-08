@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
     <groupId>top.stuck</groupId>
     <artifactId>stuck-link</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>stuck-link</name>
     <description>Stuck短链项目</description>
 

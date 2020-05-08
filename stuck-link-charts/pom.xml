@@ -6,7 +6,7 @@
     <parent>
         <artifactId>stuck-link</artifactId>
         <groupId>top.stuck</groupId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
     <artifactId>stuck-link-charts</artifactId>
     <packaging>jar</packaging>

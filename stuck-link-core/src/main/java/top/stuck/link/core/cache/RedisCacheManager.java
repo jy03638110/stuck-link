@@ -28,7 +28,7 @@ public class RedisCacheManager implements CacheManager {
 
     @PostConstruct
     void init() {
-        logger.info("初始化redis缓存管理器:" + redisTemplate);
+        logger.info("初始化redis缓存管理器: RedisCacheManager");
     }
 
     @Override

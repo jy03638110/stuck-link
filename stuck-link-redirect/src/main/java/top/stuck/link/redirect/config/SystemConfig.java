@@ -27,7 +27,7 @@ public class SystemConfig {
     private String accessToken;
 
     /**
-     * 默认构建类-消息构建q
+     * 默认构建类-消息构建
      * @return
      */
     @Bean
@@ -36,7 +36,7 @@ public class SystemConfig {
     }
 
     /**
-     * 默认管道类-ArrayBlockingQueue实现
+     * 默认管道类-LinkedBlockingQueuePipeline实现
      * @return
      */
     @Bean

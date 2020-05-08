@@ -31,7 +31,7 @@ link:
     api-enabled: false
   admin:
     # 是否开启短链管理API接口 接口地址为/url/*，需要依赖stuck-link-charts模块
-    api-enabled: true
+    api-enabled: false
 
 
 # 服务器配置

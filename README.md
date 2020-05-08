@@ -3,7 +3,7 @@
 #### 介绍
 stuck-link是一个以生产者、管道、消费者为模型，支持高并发和易于二次开发的短链转发、匿名访问、访问统计框架，提供了灵活的默认配置，支持二维码生成，易于部署。
 
-demo网站：[Stuck](http://link.stuck.top/)
+demo网站：[http://stuck.top](http://stuck.top/)
 
 <p align="center">
     <a target="_blank" href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">
@@ -28,24 +28,29 @@ demo网站：[Stuck](http://link.stuck.top/)
 
 #### 安装教程
 
-1.  安装短链转发服务
-    1.  修改stuck-link-redirect下配置文件application.yml中，数据源，缓存源。默认stuck-link-redirect模块禁用访问统计图形API接口和异步任务接口，可以通过设置参数link.charts.api-enabled和link.async.enabled进行功能启用
+1.  源码编译部署
+    1.  修改stuck-link-redirect下配置文件application.yml中，数据源，缓存源。
     2.  编译stuck-link-redirect模块：mvn clean package
     3.  将stuck-link-redirect模块target目录下stuck-link-redirect.jar放至服务器，运行jar包，启动服务：nohup java -jar stuck-link-redirect.jar &
 2.  docker部署stuck-link-redirect服务
+3.  已编译jar包部署
+    1.  
 
 #### 使用说明
 
 1.  短链功能
-    1.  短链重定向：http://link.stuck.top/zaeJ9t
-    2.  生成短链：http://link.stuck.top/short?www.taobao.com 或 http://link.stuck.top/short?http://www.taobao.com
-    3.  短链还原真实地址：
+    1.  短链重定向：http://stuck.top/zaeJ9t
+    2.  生成短链：http://stuck.top/short?www.taobao.com 或 http://stuck.top/short?http://www.taobao.com
+    3.  短链还原真实地址：http://stuck.top/restore?http://stuck.top/zaeJ9t或http://stuck.top/restore?stuck.top/zaeJ9t
 2.  短链二维码
     1.  二维码接口：http://link.stuck.top/img/zaeJ9t
 3.  匿名访问
     1.  http://link.stuck.top?www.baidu.com 或 http://link.stuck.top?http://www.baidu.com
 4.  访问统计
-    1.  结合匿名访问功能，可以实现不对底层接口代码修改，也不增加额外AOP就完成对原有网站系统的访问统计。参考Demo
+5.  配置调整
+    - 默认禁用访问统计图形API接口，通过设置参数link.charts.api-enabled进行启用
+    - 默认禁用异步任务接口，通过设置参数link.async.enabled进行启用
+    - 默认采用内存缓存管理器，通过设置参数link.cache.type进行设置，现支持memory（不支持缓存有效时间）和redis两类缓存管理器
 
 #### 参与贡献
 
