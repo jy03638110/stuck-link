@@ -12,9 +12,20 @@ public class ReturnT<T> implements Serializable {
 
     private static final long serialVersionUID = 4907668910544617452L;
 
+    /**
+     * 请求成功
+     */
     public static final int SUCCESS_CODE = 200;
 
+    /**
+     * 请求失败
+     */
     public static final int FAIL_CODE = 500;
+
+    /**
+     * 参数校验失败
+     */
+    public static final int PARAM_VALIDATE_FAIL = 301;
 
     public static final ReturnT<String> SUCCESS = new ReturnT<>();
 
@@ -38,6 +49,14 @@ public class ReturnT<T> implements Serializable {
     public ReturnT(T content) {
         this.code = SUCCESS_CODE;
         this.content = content;
+    }
+
+    public boolean success(){
+        return SUCCESS.equals(code);
+    }
+
+    public boolean fail(){
+        return !success();
     }
 
     public int getCode() {
