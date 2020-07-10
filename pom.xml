@@ -22,7 +22,7 @@
         <spring-boot.version>2.1.13.RELEASE</spring-boot.version>
         <nekohtml.version>1.9.22</nekohtml.version>
         <mybatis.version>2.1.2</mybatis.version>
-        <mysql-connector-java.version>5.1.48</mysql-connector-java.version>
+        <mysql-connector-java.version>8.0.16</mysql-connector-java.version>
         <jedis.version>2.9.0</jedis.version>
         <fastjson.version>1.2.60</fastjson.version>
         <uasparser.version>0.6.2</uasparser.version>
